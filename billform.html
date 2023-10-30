@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BillForm</title>
+   <link rel="stylesheet" href="bill.css">
+</head>
+<body>
+  <div class="form">
+    <form method="post" action="scriptURL" name="bill-form">
+      <div class="header">
+        Send Bill via Whatsapp
+      </div>
+      <div class="content">
+        <div class="label">
+          <label for="Customer">Customer:</label>
+          <label for="Purchaser">Purchaser:</label>
+          <label for="Amount">Amount:</label>
+          <label for="Phone">Phone:</label>
+        </div>
+        <div class="input">
+          <input type="text" class="name" name="Customer">
+          <input type="text" class="pname" name="Purchaser">
+          <input type="number" class="amount" name="Amount">
+          <input type="number" class="phone" name="Phone">
+        </div>
+      </div>
+    
+      <div class="textarea">
+        <textarea class="message">Thank you for shopping with us!! Please visit again. For any queries, contact 9440850817.</textarea>
+      </div>
+      <div class="btns">
+        <input type="submit" value="export-excel" class="button ">
+        <div class="ima">
+          <img src="sheets.png" alt="">
+        </div>
+        <button type="submit" class="btn" onclick="sendwhatsapp();">📞Whatsapp</button>
+  
+      </div>
+     
+    </form>
+  </div>
+  
+  
+     <script >
+   const scriptURL = 'https://script.google.com/macros/s/AKfycbxrx7o3g67MccyfbSGVRkA501tmfe1u67vgZHHYBeRKJuTPDeN1JSJAogtTtpnJdDVq/exec'
+  let form=document.forms['bill-form'];
+  form.addEventListener('submit',(e)=>{
+    e.preventDefault()
+    fetch(scriptURL,
+    {
+      method:'POST',
+      body:new FormData(form)
+    })
+    .then((res)=>alert("Thank you!"))
+    
+    .catch(error=>console.error('Error!',error.message))
+  })
+  function sendwhatsapp(){
+    
+       var Name = document.querySelector(".name").value;
+       var pname=document.querySelector(".pname").value;
+       var amount=document.querySelector(".amount").value;
+      
+       var message = document.querySelector(".message").value;
+       var phone=document.querySelector(".phone").value;
+      
+       var url= "https://wa.me/" +"+91"+phone+ "?text="
+       +"Customer : "+Name+"%0a"
+       +"purchase holder : "+pname+"%0a"
+       +"Amount: "+amount+"%0a"
+       +"Message : "+message;
+
+      
+       window.open(url, '_blank').focus();
+        
+    } 
+  
+     
+  
+
+     
+
+     </script>
+     
+</body>
+</html>
